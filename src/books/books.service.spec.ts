@@ -6,13 +6,15 @@ import FakeBooksProvider from './providers/BooksProvider/fakes/FakeBooksProvider
 
 describe('BooksService', () => {
   let service: BooksService;
+  let fakeBooksProvider: FakeBooksProvider;
 
   beforeEach(async () => {
+    fakeBooksProvider = new FakeBooksProvider();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
           provide: BooksProvider,
-          useValue: new FakeBooksProvider(),
+          useValue: fakeBooksProvider,
         },
         BooksService,
       ],
@@ -46,6 +48,7 @@ describe('BooksService', () => {
       author: 'john doe',
       description: 'my book',
     });
+    expect(fakeBooksProvider.insert).toBeCalled();
     expect(book.title).toBe('A Book');
     expect(book.id).toBe(1);
   });
