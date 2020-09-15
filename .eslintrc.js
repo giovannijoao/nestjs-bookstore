@@ -4,12 +4,12 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['@typescript-eslint', 'prettier'],
   extends: [
+    "airbnb-base",
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier',
-    'prettier/@typescript-eslint',
+    "plugin:prettier/recommended"
   ],
   root: true,
   env: {
@@ -17,9 +17,24 @@ module.exports = {
     jest: true,
   },
   rules: {
+    'no-useless-constructor': 'off',
+    "import/prefer-default-export": 'off',
+    "prettier/prettier": "error",
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never"
+      }
+    ]
   },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
 };
