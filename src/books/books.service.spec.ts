@@ -43,12 +43,13 @@ describe('BooksService', () => {
   });
 
   it('should be able to create a new book', async () => {
+    const spy = jest.spyOn(fakeBooksProvider, 'insert');
     const book = await service.create({
       title: 'A Book',
       author: 'john doe',
       description: 'my book',
     });
-    expect(fakeBooksProvider.insert).toBeCalled();
+    expect(spy).toBeCalled();
     expect(book.title).toBe('A Book');
     expect(book.id).toBe(1);
   });
