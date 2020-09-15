@@ -1,23 +1,26 @@
-import { Injectable, HttpException } from '@nestjs/common';
-import { BOOKS } from '../mocks/books.mock';
+import { Injectable, Inject } from '@nestjs/common';
+import IBook from './providers/BooksProvider/models/Book';
+import BooksProvider from './providers/BooksProvider';
 
 @Injectable()
 export class BooksService {
-  books = BOOKS;
+  constructor(private booksProvider: BooksProvider) {}
 
-  getBooks(): Promise<any> {
-    return new Promise(resolve => {
-      resolve(this.books);
-    });
+  async getBooks(): Promise<IBook[]> {
+    const books = await this.booksProvider.find();
+    return books;
   }
-  getBook(bookID): Promise<any> {
-    const id = Number(bookID);
-    return new Promise(resolve => {
-      const book = this.books.find(book => book.id === id);
-      if (!book) {
-        throw new HttpException('Book does not exist!', 404);
-      }
-      resolve(book);
+
+  async create({
+    title,
+    description,
+    author,
+  }: Omit<IBook, 'id'>): Promise<IBook> {
+    const book = await this.booksProvider.insert({
+      title,
+      description,
+      author,
     });
+    return book;
   }
 }
