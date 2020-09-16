@@ -23,12 +23,14 @@ export class UsersService {
   }
 
   async findOne(username: string): Promise<User | undefined> {
-    const user = this.users.find(user => user.username === username);
+    const user = this.users.find(x => x.username === username);
     delete user.password;
     return user;
   }
 
   async authenticate(username: string, password: string) {
-    return this.users.find(user => user.username === username);
+    return this.users.find(
+      user => user.username === username && user.password === password,
+    );
   }
 }
