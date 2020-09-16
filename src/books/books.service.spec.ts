@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Test, TestingModule } from '@nestjs/testing';
 import { BooksService } from './books.service';
-import BooksProvider from './providers/BooksProvider';
+import BooksProvider from './providers/BooksProvider/implementations/MongoBooksProvider';
 import FakeBooksProvider from './providers/BooksProvider/fakes/FakeBooksProvider';
 
 describe('BooksService', () => {

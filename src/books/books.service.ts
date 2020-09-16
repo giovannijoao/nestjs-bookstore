@@ -1,6 +1,6 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import IBook from './providers/BooksProvider/models/Book';
-import BooksProvider from './providers/BooksProvider';
+import BooksProvider from './providers/BooksProvider/implementations/MongoBooksProvider';
 
 @Injectable()
 export class BooksService {

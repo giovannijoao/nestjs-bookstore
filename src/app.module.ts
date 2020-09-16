@@ -8,10 +8,10 @@ import { SessionsModule } from './sessions/sessions.module';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost/nest'),
-    BooksModule,
     AuthModule,
     UsersModule,
     SessionsModule,
+    BooksModule,
   ],
 })
 export class AppModule {}

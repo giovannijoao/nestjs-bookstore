@@ -1,5 +1,6 @@
 import IBook from '../models/Book';
 import IBooksProvider from '../IBooksProvider';
+import ICreateBookDTO from '../dtos/ICreateBookDTO';
 
 export default class FakeBooksProvider implements IBooksProvider {
   private books: IBook[] = [];
@@ -8,11 +9,7 @@ export default class FakeBooksProvider implements IBooksProvider {
     return this.books;
   }
 
-  async insert({
-    title,
-    description,
-    author,
-  }: Omit<IBook, 'id'>): Promise<IBook> {
+  async insert({ title, description, author }: ICreateBookDTO): Promise<IBook> {
     const insertedBook = {
       title,
       description,
