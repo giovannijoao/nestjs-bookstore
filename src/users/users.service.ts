@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
-export type User = {
+type User = {
   userId: number;
   username: string;
   password: string;
 };
+
+export type ParsedUser = Omit<User, 'password'>;
 
 @Injectable()
 export class UsersService {
@@ -21,6 +23,12 @@ export class UsersService {
   }
 
   async findOne(username: string): Promise<User | undefined> {
+    const user = this.users.find(user => user.username === username);
+    delete user.password;
+    return user;
+  }
+
+  async authenticate(username: string, password: string) {
     return this.users.find(user => user.username === username);
   }
 }
