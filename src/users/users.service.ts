@@ -1,36 +1,26 @@
 import { Injectable } from '@nestjs/common';
-
-type User = {
-  userId: number;
-  username: string;
-  password: string;
-};
-
-export type ParsedUser = Omit<User, 'password'>;
+import { hash } from 'bcryptjs';
+import { bcryptConstants } from '../configs/constants';
+import { UsersRepository } from './providers/UsersRepository';
+import CreateUserDTO from './providers/UsersRepository/dtos/CreateUserDTO';
+import UserModel from './providers/UsersRepository/models/User';
 
 @Injectable()
 export class UsersService {
-  private readonly users: User[];
+  constructor(private usersRepository: UsersRepository) {}
 
-  constructor() {
-    this.users = [
-      {
-        userId: 1,
-        username: 'giovanni',
-        password: 'changeme',
-      },
-    ];
-  }
-
-  async findOne(username: string): Promise<User | undefined> {
-    const user = this.users.find(x => x.username === username);
-    delete user.password;
+  async findOne(email: string): Promise<UserModel | undefined> {
+    const user = this.usersRepository.findByEmail(email);
     return user;
   }
 
-  async authenticate(username: string, password: string) {
-    return this.users.find(
-      user => user.username === username && user.password === password,
-    );
+  async create({ name, email, password }: CreateUserDTO): Promise<UserModel> {
+    const hashedPassword = await hash(password, bcryptConstants.salt);
+    const user = this.usersRepository.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+    return user;
   }
 }

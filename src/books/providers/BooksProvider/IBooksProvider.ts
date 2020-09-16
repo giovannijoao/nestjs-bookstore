@@ -1,4 +1,4 @@
-import ICreateBookDTO from './dtos/CreateBookDTO';
+import ICreateBookDTO from './dtos/ICreateBookDTO';
 import IBook from './models/Book';
 
 export default interface IBooksProvider {
