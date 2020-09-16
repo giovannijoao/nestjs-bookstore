@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
-import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
+import { AuthService } from '../auth/auth.service';
+import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
 
 @Controller('sessions')
 export class SessionsController {

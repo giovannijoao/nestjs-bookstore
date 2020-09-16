@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { HashProvider } from '../shared/providers/HashProvider';
+import FakeHashProvider from '../shared/providers/HashProvider/fakes/FakeHashProvider';
 import AppError from '../shared/models/AppError';
 import { UsersRepository } from './providers/UsersRepository';
 import FakeUsersRepository from './providers/UsersRepository/fakes/FakeUsersRepository';
@@ -15,6 +17,10 @@ describe('UsersService', () => {
         {
           provide: UsersRepository,
           useValue: fakeUsersRepository,
+        },
+        {
+          provide: HashProvider,
+          useValue: new FakeHashProvider(),
         },
         UsersService,
       ],

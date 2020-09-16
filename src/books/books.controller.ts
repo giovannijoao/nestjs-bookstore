@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { BooksService } from './books.service';
 import ICreateBookDTO from './providers/BooksProvider/dtos/ICreateBookDTO';
 import IBook from './providers/BooksProvider/models/Book';

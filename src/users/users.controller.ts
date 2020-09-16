@@ -5,7 +5,7 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
-import AppError from 'src/shared/models/AppError';
+import AppError from '../shared/models/AppError';
 import CreateUserDTO from './providers/UsersRepository/dtos/CreateUserDTO';
 import { UsersService } from './users.service';
 
