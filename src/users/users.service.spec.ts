@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import AppError from '../shared/models/AppError';
 import { UsersRepository } from './providers/UsersRepository';
 import FakeUsersRepository from './providers/UsersRepository/fakes/FakeUsersRepository';
 import { UsersService } from './users.service';
@@ -32,5 +33,18 @@ describe('UsersService', () => {
     expect(user.name).toBe('john doe');
   });
 
-  // TODO: It should not able to create an user account with already in use e-mail
+  it('It should not able to create an user account with already in-use e-mail', async () => {
+    await fakeUsersRepository.create({
+      name: 'john doe',
+      email: 'john-doe@example.com',
+      password: 'johndoe123',
+    });
+    await expect(
+      service.create({
+        name: 'john doe',
+        email: 'john-doe@example.com',
+        password: 'johndoe123',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
