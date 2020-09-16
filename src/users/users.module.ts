@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { HashProvider } from 'src/shared/providers/HashProvider';
 import { UsersRepository } from './providers/UsersRepository';
 import {
   User,
@@ -12,8 +13,8 @@ import { UsersController } from './users.controller';
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  providers: [UsersRepository, UsersService],
-  exports: [UsersService],
+  providers: [UsersRepository, UsersService, HashProvider],
+  exports: [UsersService, UsersRepository],
   controllers: [UsersController],
 })
 export class UsersModule {}

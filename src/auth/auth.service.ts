@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users/users.service';
+import { UsersRepository } from '../users/providers/UsersRepository';
 import { HashProvider } from '../shared/providers/HashProvider';
 
 type User = {
@@ -11,13 +11,13 @@ type User = {
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
+    private usersRepository: UsersRepository,
     private jwtService: JwtService,
     private hashProvider: HashProvider,
   ) {}
 
   async validateUser(email: string, password: string): Promise<User | null> {
-    const user = await this.usersService.findOne(email);
+    const user = await this.usersRepository.findByEmail(email);
     if (!user) {
       throw new HttpException(
         'User not found or password is incorret',

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
+import { UsersModule } from 'src/users/users.module';
 import { HashProvider } from '../shared/providers/HashProvider';
-import { UsersModule } from '../users/users.module';
-import BCryptHashProvider from '../shared/providers/HashProvider/implementations/BCryptHashProvider';
 import { AuthService } from './auth.service';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
@@ -20,15 +20,7 @@ import { LocalStrategy } from './local.strategy';
       },
     }),
   ],
-  providers: [
-    AuthService,
-    LocalStrategy,
-    JwtStrategy,
-    {
-      provide: HashProvider,
-      useValue: BCryptHashProvider,
-    },
-  ],
+  providers: [AuthService, LocalStrategy, JwtStrategy, HashProvider],
   exports: [AuthService],
 })
 export class AuthModule {}

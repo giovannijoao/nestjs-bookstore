@@ -1,9 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import UserModel from '../../../models/User';
 
 @Schema()
-export class User extends Document implements UserModel {
+export class User extends Document {
   @Prop()
   userId: string;
 
