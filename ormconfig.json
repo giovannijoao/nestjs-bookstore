@@ -9,8 +9,11 @@
    "synchronize": true,
    "logging": false,
    "entities": ["dist/**/*.entity{.ts,.js}"],
+   "migrations": [
+      "dist/shared/infra/typeorm/migrations/*{.ts,.js}"
+   ],
    "cli": {
-      "entitiesDir": "src/**/providers/**/entities",
-      "migrationsDir": "src/shared/infra/typeorm/migrations"
+      "entitiesDir": "**/entities",
+      "migrationsDir": "shared/infra/typeorm/migrations"
    }
 }

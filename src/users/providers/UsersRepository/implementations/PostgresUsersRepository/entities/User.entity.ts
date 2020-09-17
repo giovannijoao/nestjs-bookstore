@@ -6,19 +6,21 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import IUser from '../../../models/User';
+
 @Entity()
-export class Book {
+export class User implements IUser {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  userId: string;
 
   @Column()
-  title: string;
+  email: string;
 
   @Column()
-  description: string;
+  name: string;
 
   @Column()
-  author: string;
+  password: string;
 
   @CreateDateColumn()
   created_at: Date;

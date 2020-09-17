@@ -17,13 +17,13 @@ export default class PostgresBooksRepository implements IBooksRepository {
   }
 
   async insert({ title, description, author }: ICreateBookDTO): Promise<IBook> {
-    const user = this.ormRepository.create({
+    const book = this.ormRepository.create({
       title,
       description,
       author,
     });
-    await this.ormRepository.save(user);
-    return user;
+    await this.ormRepository.save(book);
+    return book;
   }
 
   async save(book: IBook): Promise<IBook> {

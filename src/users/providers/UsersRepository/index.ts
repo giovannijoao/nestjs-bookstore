@@ -1,1 +1,1 @@
-export { default as UsersRepository } from './implementations/MongoUsersRepository';
+export { default as UsersRepository } from './implementations/PostgresUsersRepository';

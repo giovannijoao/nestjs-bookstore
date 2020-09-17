@@ -12,6 +12,8 @@ export default class FakeUsersRepository implements IUsersRepository {
     user.name = name;
     user.email = email;
     user.password = password;
+    user.created_at = new Date(Date.now());
+    user.updated_at = new Date(Date.now());
     this.users.push(user);
     return user;
   }

@@ -5,12 +5,12 @@ import { BooksModule } from './books/books.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SessionsModule } from './sessions/sessions.module';
-import { Book } from './books/providers/BooksRepository/implementations/PostgresBooksRepository/entities/Book.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       autoLoadEntities: true,
+      migrationsRun: false,
     }),
     MongooseModule.forRoot('mongodb://localhost/nest'),
     AuthModule,
