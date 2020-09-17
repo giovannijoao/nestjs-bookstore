@@ -1,6 +1,6 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import IBook from '../../models/Book';
+import Book from '../../models/Book';
 import IBooksRepository from '../../IBooksRepository';
 import { Book } from './schemas/book.schema';
 import ICreateBookDTO from '../../dtos/ICreateBookDTO';
@@ -10,12 +10,12 @@ export default class MongoBooksRepository implements IBooksRepository {
     @InjectModel(Book.name) private readonly BookModel: Model<Book>,
   ) {}
 
-  async find(): Promise<IBook[]> {
+  async find(): Promise<Book[]> {
     const books = await this.BookModel.find();
     return books;
   }
 
-  async insert({ title, description, author }: ICreateBookDTO): Promise<IBook> {
+  async insert({ title, description, author }: ICreateBookDTO): Promise<Book> {
     const insertedBook = new this.BookModel({
       title,
       description,
@@ -27,7 +27,7 @@ export default class MongoBooksRepository implements IBooksRepository {
     return insertedBook;
   }
 
-  async save(book: IBook): Promise<IBook> {
+  async save(book: Book): Promise<Book> {
     await this.BookModel.updateOne(
       {
         id: book.id,

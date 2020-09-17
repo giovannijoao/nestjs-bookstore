@@ -2,7 +2,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import ICreateBookDTO from '../../dtos/ICreateBookDTO';
 import IBooksRepository from '../../IBooksRepository';
-import IBook from '../../models/Book';
 import { Book } from './entities/Book.entity';
 
 export default class PostgresBooksRepository implements IBooksRepository {
@@ -11,12 +10,12 @@ export default class PostgresBooksRepository implements IBooksRepository {
     private ormRepository: Repository<Book>,
   ) {}
 
-  async find(): Promise<IBook[]> {
+  async find(): Promise<Book[]> {
     const books = await this.ormRepository.find();
     return books;
   }
 
-  async insert({ title, description, author }: ICreateBookDTO): Promise<IBook> {
+  async insert({ title, description, author }: ICreateBookDTO): Promise<Book> {
     const book = this.ormRepository.create({
       title,
       description,
@@ -26,7 +25,7 @@ export default class PostgresBooksRepository implements IBooksRepository {
     return book;
   }
 
-  async save(book: IBook): Promise<IBook> {
+  async save(book: Book): Promise<Book> {
     await this.ormRepository.save(book);
     return book;
   }

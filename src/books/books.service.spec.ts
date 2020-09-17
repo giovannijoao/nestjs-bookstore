@@ -34,7 +34,7 @@ describe('BooksService', () => {
     expect(books).toEqual(
       expect.arrayContaining([
         {
-          id: 1,
+          id: '1',
           title: 'A Book',
           author: 'john doe',
           description: 'my book',
@@ -54,6 +54,6 @@ describe('BooksService', () => {
     });
     expect(spy).toBeCalled();
     expect(book.title).toBe('A Book');
-    expect(book.id).toBe(1);
+    expect(book.id).toBe('1');
   });
 });

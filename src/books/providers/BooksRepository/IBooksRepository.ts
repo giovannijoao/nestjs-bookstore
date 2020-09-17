@@ -1,8 +1,8 @@
 import ICreateBookDTO from './dtos/ICreateBookDTO';
-import IBook from './models/Book';
+import Book from './models/Book';
 
 export default interface IBooksRepository {
-  find(): Promise<IBook[]>;
-  insert(data: ICreateBookDTO): Promise<IBook>;
-  save(data: IBook): Promise<IBook>;
+  find(): Promise<Book[]>;
+  insert(data: ICreateBookDTO): Promise<Book>;
+  save(data: Book): Promise<Book>;
 }

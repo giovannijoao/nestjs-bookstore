@@ -5,7 +5,7 @@ import IBook from '../../../models/Book';
 @Schema()
 export class Book extends Document implements IBook {
   @Prop()
-  id: number;
+  id: string;
 
   @Prop()
   title: string;
