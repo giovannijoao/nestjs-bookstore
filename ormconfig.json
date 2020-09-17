@@ -10,7 +10,7 @@
    "logging": false,
    "entities": ["dist/**/*.entity{.ts,.js}"],
    "migrations": [
-      "src/shared/infra/typeorm/migrations/*{.ts,.js}"
+      "shared/infra/typeorm/migrations/*{.ts,.js}"
    ],
    "cli": {
       "entitiesDir": "**/entities",

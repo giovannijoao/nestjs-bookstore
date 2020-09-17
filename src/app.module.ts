@@ -11,7 +11,7 @@ import { PurchaseModule } from './purchase/purchase.module';
   imports: [
     TypeOrmModule.forRoot({
       autoLoadEntities: true,
-      migrationsRun: false,
+      migrations: ['dist/shared/infra/typeorm/migrations/*{.ts,.js}'],
     }),
     MongooseModule.forRoot('mongodb://localhost/nest'),
     AuthModule,

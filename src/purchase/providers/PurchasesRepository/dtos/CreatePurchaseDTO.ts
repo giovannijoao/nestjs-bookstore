@@ -1,11 +1,8 @@
-import UserModel from '../../../../users/providers/UsersRepository/models/User';
-import Book from '../../../../books/providers/BooksRepository/models/Book';
-
 export default class CreatePurchaseDTO {
   items: Array<{
-    book: Book;
+    book_id: string;
     quantity: number;
   }>;
 
-  user: UserModel;
+  user_id: string;
 }

@@ -4,24 +4,6 @@ import FakePurchaseRepository from './providers/PurchasesRepository/fakes/FakePu
 import { PurchasesRepository } from './providers/PurchasesRepository/implementations';
 import { PurchaseService } from './purchase.service';
 
-const randomBook = {
-  id: '1',
-  title: 'Any book',
-  description: 'A great book',
-  author: 'John Doe',
-  created_at: new Date(),
-  updated_at: new Date(),
-};
-
-const randomUser = {
-  userId: 'userId-1',
-  created_at: new Date(),
-  updated_at: new Date(),
-  email: 'john-doe@email.com',
-  name: 'John Doe',
-  password: 'any',
-};
-
 describe('PurchaseService', () => {
   let service: PurchaseService;
   let fakePurchasesRepository: FakePurchaseRepository;
@@ -46,17 +28,17 @@ describe('PurchaseService', () => {
     const purchases = await service.create({
       items: [
         {
-          book: randomBook,
+          book_id: '1',
           quantity: 1,
         },
       ],
-      user: randomUser,
+      user_id: 'randomUser',
     });
     expect(purchases).toEqual(
       expect.arrayContaining([
         {
-          book_id: randomBook.id,
-          user_id: randomUser.userId,
+          book_id: '1',
+          user_id: 'randomUser',
           quantity: 1,
           purchased_at: new Date(0),
         },
@@ -69,34 +51,27 @@ describe('PurchaseService', () => {
     const purchases = await service.create({
       items: [
         {
-          book: randomBook,
+          book_id: '1',
           quantity: 1,
         },
         {
-          book: {
-            id: '2',
-            title: 'Another Great Book',
-            description: '',
-            author: 'John Doe 2',
-            created_at: new Date(),
-            updated_at: new Date(),
-          },
+          book_id: '2',
           quantity: 2,
         },
       ],
-      user: randomUser,
+      user_id: 'randomUser',
     });
     expect(purchases).toEqual(
       expect.arrayContaining([
         {
-          book_id: randomBook.id,
-          user_id: randomUser.userId,
+          book_id: '1',
+          user_id: 'randomUser',
           quantity: 1,
           purchased_at: new Date(0),
         },
         {
           book_id: '2',
-          user_id: randomUser.userId,
+          user_id: 'randomUser',
           quantity: 2,
           purchased_at: new Date(0),
         },
@@ -109,11 +84,11 @@ describe('PurchaseService', () => {
       service.create({
         items: [
           {
-            book: randomBook,
+            book_id: '1',
             quantity: 0,
           },
         ],
-        user: randomUser,
+        user_id: 'randomUser',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

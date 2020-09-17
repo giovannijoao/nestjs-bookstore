@@ -8,7 +8,7 @@ import IPurchase from './providers/PurchasesRepository/models/IPurchase';
 export class PurchaseService {
   constructor(private purchasesRepository: PurchasesRepository) {}
 
-  async create({ items, user }: CreatePurchaseDTO): Promise<IPurchase[]> {
+  async create({ items, user_id }: CreatePurchaseDTO): Promise<IPurchase[]> {
     const hasAnItemWithZeroQuantity = items.some(item => item.quantity === 0);
     if (hasAnItemWithZeroQuantity) {
       throw new AppError(
@@ -18,7 +18,7 @@ export class PurchaseService {
     }
     return this.purchasesRepository.create({
       items,
-      user,
+      user_id,
     });
   }
 }

@@ -12,11 +12,11 @@ export default class PostgresPurchasesRepository
     private ormRepository: Repository<Purchase>,
   ) {}
 
-  async create({ items, user }: CreatePurchaseDTO): Promise<IPurchase[]> {
-    const purchases: Purchase[] = items.map(({ book, quantity }) => ({
-      book_id: book.id,
+  async create({ items, user_id }: CreatePurchaseDTO): Promise<IPurchase[]> {
+    const purchases: Purchase[] = items.map(({ book_id, quantity }) => ({
+      book_id,
       quantity,
-      user_id: user.userId,
+      user_id,
       purchased_at: new Date(Date.now()),
     }));
     await this.ormRepository.save(purchases);
