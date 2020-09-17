@@ -1,0 +1,16 @@
+{
+   "name": "default",
+   "type": "postgres",
+   "host": "localhost",
+   "port": 5432,
+   "username": "postgres",
+   "password": "docker",
+   "database": "bookstore",
+   "synchronize": true,
+   "logging": false,
+   "entities": ["dist/**/*.entity{.ts,.js}"],
+   "cli": {
+      "entitiesDir": "src/**/providers/**/entities",
+      "migrationsDir": "src/shared/infra/typeorm/migrations"
+   }
+}

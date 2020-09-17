@@ -17,6 +17,7 @@ module.exports = {
     jest: true,
   },
   rules: {
+    'camelcase': 'off',
     "class-methods-use-this": 'off',
     'no-useless-constructor': 'off',
     "import/prefer-default-export": 'off',

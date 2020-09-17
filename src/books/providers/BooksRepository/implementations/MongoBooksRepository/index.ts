@@ -1,11 +1,11 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import IBook from '../../models/Book';
-import IBooksProvider from '../../IBooksProvider';
+import IBooksRepository from '../../IBooksRepository';
 import { Book } from './schemas/book.schema';
 import ICreateBookDTO from '../../dtos/ICreateBookDTO';
 
-export default class MongoBooksProvider implements IBooksProvider {
+export default class MongoBooksRepository implements IBooksRepository {
   constructor(
     @InjectModel(Book.name) private readonly BookModel: Model<Book>,
   ) {}
@@ -20,8 +20,22 @@ export default class MongoBooksProvider implements IBooksProvider {
       title,
       description,
       author,
+      created_at: new Date(Date.now()),
+      updated_at: new Date(Date.now()),
     });
     await insertedBook.save();
     return insertedBook;
+  }
+
+  async save(book: IBook): Promise<IBook> {
+    await this.BookModel.updateOne(
+      {
+        id: book.id,
+      },
+      {
+        $set: book,
+      },
+    );
+    return book;
   }
 }

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { HashProvider } from 'src/shared/providers/HashProvider';
+import { HashProvider } from '../shared/providers/HashProvider';
 import { UsersRepository } from './providers/UsersRepository';
 import {
   User,

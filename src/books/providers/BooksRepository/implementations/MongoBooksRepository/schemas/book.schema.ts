@@ -15,6 +15,12 @@ export class Book extends Document implements IBook {
 
   @Prop()
   author: string;
+
+  @Prop()
+  created_at: Date;
+
+  @Prop()
+  updated_at: Date;
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);

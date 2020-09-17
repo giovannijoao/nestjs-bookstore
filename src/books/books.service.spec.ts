@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Test, TestingModule } from '@nestjs/testing';
 import { BooksService } from './books.service';
-import BooksProvider from './providers/BooksProvider/implementations/MongoBooksProvider';
-import FakeBooksProvider from './providers/BooksProvider/fakes/FakeBooksProvider';
+import { BooksRepository } from './providers/BooksRepository';
+import FakeBooksProvider from './providers/BooksRepository/fakes/FakeBooksProvider';
 
 describe('BooksService', () => {
   let service: BooksService;
@@ -13,7 +13,7 @@ describe('BooksService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: BooksProvider,
+          provide: BooksRepository,
           useValue: fakeBooksProvider,
         },
         BooksService,
@@ -24,6 +24,7 @@ describe('BooksService', () => {
   });
 
   it('should return book list', async () => {
+    jest.spyOn(Date, 'now').mockImplementation(() => 0);
     await service.create({
       title: 'A Book',
       author: 'john doe',
@@ -37,6 +38,8 @@ describe('BooksService', () => {
           title: 'A Book',
           author: 'john doe',
           description: 'my book',
+          created_at: new Date(0),
+          updated_at: new Date(0),
         },
       ]),
     );

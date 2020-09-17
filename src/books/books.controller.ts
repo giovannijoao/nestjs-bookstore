@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { BooksService } from './books.service';
-import ICreateBookDTO from './providers/BooksProvider/dtos/ICreateBookDTO';
-import IBook from './providers/BooksProvider/models/Book';
+import ICreateBookDTO from './providers/BooksRepository/dtos/ICreateBookDTO';
+import IBook from './providers/BooksRepository/models/Book';
 
 @UseGuards(JwtAuthGuard)
 @Controller('books')
