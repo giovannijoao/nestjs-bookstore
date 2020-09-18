@@ -21,7 +21,9 @@ export class AllExceptionsFilter implements ExceptionFilter {
       exception instanceof AppError
         ? exception.message
         : 'Ocorreu um erro interno. Tente novamente mais tarde';
-
+    if (!(exception instanceof AppError)) {
+      console.error(exception);
+    }
     response.status(status).json({
       statusCode: status,
       message,

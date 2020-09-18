@@ -27,7 +27,7 @@ export class PurchaseController {
       quantity: number;
     }>,
     @User() user: UserModel,
-  ): Promise<IPurchase[]> {
+  ): Promise<IPurchase> {
     return this.purchaseService.create({
       items,
       user_id: user.userId,

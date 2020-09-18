@@ -4,13 +4,13 @@ export type IEstimatesDTO = Array<{
 }>;
 
 export interface IEstimatesResponse {
-  totalPrice: number;
-  itemsQuantity: number;
+  total_price: number;
+  items_quantity: number;
   items: Array<{
     book_id: string;
     quantity: number;
-    unityPrice: number;
-    totalPrice: number;
+    unity_price: number;
+    total_price: number;
     title: string;
     author: string;
   }>;
