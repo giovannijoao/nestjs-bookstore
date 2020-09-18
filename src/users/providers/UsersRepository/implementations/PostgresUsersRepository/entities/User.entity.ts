@@ -8,7 +8,7 @@ import {
 
 import IUser from '../../../models/User';
 
-@Entity()
+@Entity('users')
 export class User implements IUser {
   @PrimaryGeneratedColumn('uuid')
   userId: string;

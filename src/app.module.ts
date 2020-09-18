@@ -7,12 +7,10 @@ import { UsersModule } from './users/users.module';
 import { SessionsModule } from './sessions/sessions.module';
 import { PurchaseModule } from './purchase/purchase.module';
 
+process.env.IGNORE_MIGRATIONS = 'true';
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      autoLoadEntities: true,
-      migrations: ['dist/shared/infra/typeorm/migrations/*{.ts,.js}'],
-    }),
+    TypeOrmModule.forRoot(),
     MongooseModule.forRoot('mongodb://localhost/nest'),
     AuthModule,
     UsersModule,

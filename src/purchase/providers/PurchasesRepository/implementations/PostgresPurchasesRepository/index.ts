@@ -13,12 +13,14 @@ export default class PostgresPurchasesRepository
   ) {}
 
   async create({ items, user_id }: CreatePurchaseDTO): Promise<IPurchase[]> {
-    const purchases: Purchase[] = items.map(({ book_id, quantity }) => ({
-      book_id,
-      quantity,
-      user_id,
-      purchased_at: new Date(Date.now()),
-    }));
+    const purchases = this.ormRepository.create(
+      items.map(({ book_id, quantity }) => ({
+        book_id,
+        quantity,
+        user_id,
+        purchased_at: new Date(Date.now()),
+      })),
+    );
     await this.ormRepository.save(purchases);
     return purchases;
   }

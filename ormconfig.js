@@ -1,4 +1,4 @@
-{
+module.exports = {
    "name": "default",
    "type": "postgres",
    "host": "localhost",
@@ -6,14 +6,16 @@
    "username": "postgres",
    "password": "docker",
    "database": "bookstore",
-   "synchronize": true,
+   "synchronize": false,
    "logging": false,
    "entities": ["dist/**/*.entity{.ts,.js}"],
-   "migrations": [
-      "shared/infra/typeorm/migrations/*{.ts,.js}"
+   "dropSchema": false,
+   "migrationsRun": false,
+   "migrations": process.env.IGNORE_MIGRATIONS ? [] : [
+      "./typeorm/migrations/*.ts"
    ],
    "cli": {
       "entitiesDir": "**/entities",
-      "migrationsDir": "src/shared/infra/typeorm/migrations"
+      "migrationsDir": "migrations"
    }
 }

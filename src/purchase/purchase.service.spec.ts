@@ -37,6 +37,7 @@ describe('PurchaseService', () => {
     expect(purchases).toEqual(
       expect.arrayContaining([
         {
+          purchase_id: '1',
           book_id: '1',
           user_id: 'randomUser',
           quantity: 1,
@@ -64,12 +65,14 @@ describe('PurchaseService', () => {
     expect(purchases).toEqual(
       expect.arrayContaining([
         {
+          purchase_id: '1',
           book_id: '1',
           user_id: 'randomUser',
           quantity: 1,
           purchased_at: new Date(0),
         },
         {
+          purchase_id: '2',
           book_id: '2',
           user_id: 'randomUser',
           quantity: 2,

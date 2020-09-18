@@ -29,10 +29,11 @@ export class PurchaseController {
     @User() user: UserModel,
   ): Promise<IPurchase[]> {
     try {
-      return this.purchaseService.create({
+      const result = await this.purchaseService.create({
         items,
         user_id: user.userId,
       });
+      return result;
     } catch (error) {
       if (error instanceof AppError) {
         throw new HttpException(error.message, error.statusCode);

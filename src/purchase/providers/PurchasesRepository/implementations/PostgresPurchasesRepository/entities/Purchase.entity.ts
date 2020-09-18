@@ -1,28 +1,31 @@
 import {
   Entity,
   CreateDateColumn,
-  PrimaryColumn,
   Column,
   OneToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Book } from '../../../../../../books/providers/BooksRepository/implementations/PostgresBooksRepository/entities/Book.entity';
 import { User } from '../../../../../../users/providers/UsersRepository/implementations/PostgresUsersRepository/entities/User.entity';
 import IPurchase from '../../../models/IPurchase';
 
-@Entity()
+@Entity('purchases')
 export class Purchase implements IPurchase {
+  @PrimaryGeneratedColumn('uuid')
+  purchase_id: string;
+
   @OneToOne(
     type => Book,
     book => book.id,
   )
-  @PrimaryColumn('uuid')
+  @Column('uuid')
   book_id: string;
 
   @OneToOne(
     type => User,
     user => user.userId,
   )
-  @PrimaryColumn('uuid')
+  @Column('uuid')
   user_id: string;
 
   @Column('int')
