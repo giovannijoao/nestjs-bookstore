@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Test, TestingModule } from '@nestjs/testing';
+import AppError from '../shared/models/AppError';
 import { BooksService } from './books.service';
 import { BooksRepository } from './providers/BooksRepository';
 import FakeBooksProvider from './providers/BooksRepository/fakes/FakeBooksProvider';
@@ -58,5 +59,16 @@ describe('BooksService', () => {
     expect(spy).toBeCalled();
     expect(book.title).toBe('A Book');
     expect(book.id).toBe('1');
+  });
+
+  it('should be able to create a new book if invalid price', async () => {
+    await expect(
+      service.create({
+        title: 'A Book',
+        author: 'john doe',
+        description: 'my book',
+        price: 0,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

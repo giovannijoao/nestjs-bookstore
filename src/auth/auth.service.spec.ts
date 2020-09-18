@@ -71,4 +71,12 @@ describe('AuthService', () => {
       ),
     ).rejects.toBeInstanceOf(HttpException);
   });
+
+  it('should be able to login', async () => {
+    const result = await service.login({
+      name: 'John Doe',
+      userId: '123',
+    });
+    expect(result.access_token).toBeTruthy();
+  });
 });
