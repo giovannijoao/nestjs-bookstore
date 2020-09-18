@@ -1,3 +1,4 @@
+import BookModel from 'books/providers/BooksRepository/models/BookModel';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,9 +6,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
 @Entity('books')
-export class Book {
+export class Book implements BookModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -19,6 +19,9 @@ export class Book {
 
   @Column()
   author: string;
+
+  @Column()
+  price: number;
 
   @CreateDateColumn()
   created_at: Date;

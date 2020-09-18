@@ -29,6 +29,7 @@ describe('BooksService', () => {
       title: 'A Book',
       author: 'john doe',
       description: 'my book',
+      price: 1,
     });
     const books = await service.getBooks();
     expect(books).toEqual(
@@ -38,6 +39,7 @@ describe('BooksService', () => {
           title: 'A Book',
           author: 'john doe',
           description: 'my book',
+          price: 1,
           created_at: new Date(0),
           updated_at: new Date(0),
         },
@@ -51,6 +53,7 @@ describe('BooksService', () => {
       title: 'A Book',
       author: 'john doe',
       description: 'my book',
+      price: 1,
     });
     expect(spy).toBeCalled();
     expect(book.title).toBe('A Book');

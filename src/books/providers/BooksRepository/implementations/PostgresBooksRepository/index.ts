@@ -15,11 +15,17 @@ export default class PostgresBooksRepository implements IBooksRepository {
     return books;
   }
 
-  async insert({ title, description, author }: ICreateBookDTO): Promise<Book> {
+  async insert({
+    title,
+    description,
+    author,
+    price,
+  }: ICreateBookDTO): Promise<Book> {
     const book = this.ormRepository.create({
       title,
       description,
       author,
+      price,
     });
     await this.ormRepository.save(book);
     return book;

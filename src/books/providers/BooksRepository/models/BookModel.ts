@@ -1,4 +1,4 @@
-export default class Book {
+export default class BookModel {
   id: string;
 
   title: string;
@@ -6,6 +6,8 @@ export default class Book {
   description: string;
 
   author: string;
+
+  price: number;
 
   readonly created_at: Date;
 

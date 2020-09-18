@@ -16,6 +16,6 @@ module.exports = {
    ],
    "cli": {
       "entitiesDir": "**/entities",
-      "migrationsDir": "migrations"
+      "migrationsDir": "typeorm/migrations"
    }
 }

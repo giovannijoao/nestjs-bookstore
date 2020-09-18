@@ -9,7 +9,7 @@ import {
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from '../decoratos/user.decorator';
 import UserModel from '../users/providers/UsersRepository/models/User';
-import Book from '../books/providers/BooksRepository/models/Book';
+import BookModel from '../books/providers/BooksRepository/models/BookModel';
 import AppError from '../shared/models/AppError';
 import IPurchase from './providers/PurchasesRepository/models/IPurchase';
 import { PurchaseService } from './purchase.service';

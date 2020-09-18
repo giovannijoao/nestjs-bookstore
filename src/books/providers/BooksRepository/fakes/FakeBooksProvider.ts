@@ -1,20 +1,26 @@
-import Book from '../models/Book';
+import BookModel from '../models/BookModel';
 import IBooksRepository from '../IBooksRepository';
 import ICreateBookDTO from '../dtos/ICreateBookDTO';
 
 export default class FakeBooksRepository implements IBooksRepository {
-  private books: Book[] = [];
+  private books: BookModel[] = [];
 
-  async find(): Promise<Book[]> {
+  async find(): Promise<BookModel[]> {
     return this.books;
   }
 
-  async insert({ title, description, author }: ICreateBookDTO): Promise<Book> {
-    const insertedBook: Book = {
+  async insert({
+    title,
+    description,
+    author,
+    price,
+  }: ICreateBookDTO): Promise<BookModel> {
+    const insertedBook: BookModel = {
       title,
       description,
       author,
       id: (this.books.length + 1).toString(),
+      price,
       created_at: new Date(Date.now()),
       updated_at: new Date(Date.now()),
     };
@@ -22,7 +28,7 @@ export default class FakeBooksRepository implements IBooksRepository {
     return insertedBook;
   }
 
-  async save(book: Book): Promise<Book> {
+  async save(book: BookModel): Promise<BookModel> {
     const index = this.books.findIndex(x => x.id === book.id);
     this.books[index] = book;
     return book;
