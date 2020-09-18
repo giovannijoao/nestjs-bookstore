@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import AppError from 'shared/models/AppError';
+import AppError from '../shared/models/AppError';
 import BookModel from './providers/BooksRepository/models/BookModel';
 import { BooksRepository } from './providers/BooksRepository';
 import ICreateBookDTO from './providers/BooksRepository/dtos/ICreateBookDTO';

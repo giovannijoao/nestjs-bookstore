@@ -138,7 +138,7 @@ describe('PurchaseService', () => {
           quantity: 1,
           unityPrice: 1,
           totalPrice: 1,
-          name: 'A Book',
+          title: 'A Book',
           author: 'john doe',
         },
         {
@@ -146,7 +146,7 @@ describe('PurchaseService', () => {
           quantity: 2,
           unityPrice: 2,
           totalPrice: 4,
-          name: 'A Second Book',
+          title: 'A Second Book',
           author: 'john doe',
         },
       ]),

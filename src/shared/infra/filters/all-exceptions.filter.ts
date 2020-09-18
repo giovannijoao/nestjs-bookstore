@@ -4,7 +4,7 @@ import {
   ArgumentsHost,
   HttpStatus,
 } from '@nestjs/common';
-import AppError from 'shared/models/AppError';
+import AppError from '../../models/AppError';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {

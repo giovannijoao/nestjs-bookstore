@@ -28,38 +28,14 @@ export class PurchaseController {
     }>,
     @User() user: UserModel,
   ): Promise<IPurchase[]> {
-    try {
-      const result = await this.purchaseService.create({
-        items,
-        user_id: user.userId,
-      });
-      return result;
-    } catch (error) {
-      if (error instanceof AppError) {
-        throw new HttpException(error.message, error.statusCode);
-      } else {
-        throw new HttpException(
-          'Ocorreu um erro interno',
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }
-    }
+    return this.purchaseService.create({
+      items,
+      user_id: user.userId,
+    });
   }
 
   @Post('estimates')
   async estimates(@Body() items: IEstimatesDTO): Promise<IEstimatesResponse> {
-    try {
-      const result = await this.purchaseService.estimates(items);
-      return result;
-    } catch (error) {
-      if (error instanceof AppError) {
-        throw new HttpException(error.message, error.statusCode);
-      } else {
-        throw new HttpException(
-          'Ocorreu um erro interno',
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }
-    }
+    return this.purchaseService.estimates(items);
   }
 }

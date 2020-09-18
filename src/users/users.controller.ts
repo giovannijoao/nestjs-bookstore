@@ -15,20 +15,9 @@ export class UsersController {
 
   @Post()
   async create(@Body() user: CreateUserDTO): Promise<any> {
-    try {
-      await this.usersService.create(user);
-      return {
-        message: 'Account created. Now, you can login.',
-      };
-    } catch (error) {
-      if (error instanceof AppError) {
-        throw new HttpException(error.message, error.statusCode);
-      } else {
-        throw new HttpException(
-          'Internal Server Error',
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }
-    }
+    await this.usersService.create(user);
+    return {
+      message: 'Account created. Now, you can login.',
+    };
   }
 }
