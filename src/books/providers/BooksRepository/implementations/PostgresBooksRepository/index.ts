@@ -1,6 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import ICreateBookDTO from '../../dtos/ICreateBookDTO';
+import IFindBookDTO from '../../dtos/IFindBookDTO';
 import IBooksRepository from '../../IBooksRepository';
 import { Book } from './entities/Book.entity';
 
@@ -10,8 +11,17 @@ export default class PostgresBooksRepository implements IBooksRepository {
     private ormRepository: Repository<Book>,
   ) {}
 
-  async find(): Promise<Book[]> {
-    const books = await this.ormRepository.find();
+  async find(filter?: IFindBookDTO): Promise<Book[]> {
+    let books: Book[];
+    if (filter?.ids) {
+      books = await this.ormRepository.find({
+        where: {
+          id: In(filter.ids),
+        },
+      });
+    } else {
+      books = await this.ormRepository.find();
+    }
     return books;
   }
 

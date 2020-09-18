@@ -1,12 +1,15 @@
 import BookModel from '../models/BookModel';
 import IBooksRepository from '../IBooksRepository';
 import ICreateBookDTO from '../dtos/ICreateBookDTO';
+import IFindBookDTO from '../dtos/IFindBookDTO';
 
 export default class FakeBooksRepository implements IBooksRepository {
   private books: BookModel[] = [];
 
-  async find(): Promise<BookModel[]> {
-    return this.books;
+  async find(filter?: IFindBookDTO): Promise<BookModel[]> {
+    let books = [...this.books];
+    if (filter?.ids) books = books.filter(book => filter.ids.includes(book.id));
+    return books;
   }
 
   async insert({

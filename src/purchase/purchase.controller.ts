@@ -9,10 +9,10 @@ import {
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from '../decoratos/user.decorator';
 import UserModel from '../users/providers/UsersRepository/models/User';
-import BookModel from '../books/providers/BooksRepository/models/BookModel';
 import AppError from '../shared/models/AppError';
 import IPurchase from './providers/PurchasesRepository/models/IPurchase';
 import { PurchaseService } from './purchase.service';
+import { IEstimatesDTO, IEstimatesResponse } from './interfaces/IEstimates';
 
 @Controller('purchase')
 export class PurchaseController {
@@ -33,6 +33,23 @@ export class PurchaseController {
         items,
         user_id: user.userId,
       });
+      return result;
+    } catch (error) {
+      if (error instanceof AppError) {
+        throw new HttpException(error.message, error.statusCode);
+      } else {
+        throw new HttpException(
+          'Ocorreu um erro interno',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    }
+  }
+
+  @Post('estimates')
+  async estimates(@Body() items: IEstimatesDTO): Promise<IEstimatesResponse> {
+    try {
+      const result = await this.purchaseService.estimates(items);
       return result;
     } catch (error) {
       if (error instanceof AppError) {

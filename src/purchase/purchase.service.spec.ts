@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { BooksRepository } from '../books/providers/BooksRepository';
+import FakeBooksRepository from '../books/providers/BooksRepository/fakes/FakeBooksProvider';
 import AppError from '../shared/models/AppError';
 import FakePurchaseRepository from './providers/PurchasesRepository/fakes/FakePurchasesRepository';
 import { PurchasesRepository } from './providers/PurchasesRepository/implementations';
@@ -7,14 +9,20 @@ import { PurchaseService } from './purchase.service';
 describe('PurchaseService', () => {
   let service: PurchaseService;
   let fakePurchasesRepository: FakePurchaseRepository;
+  let fakeBooksRepository: FakeBooksRepository;
 
   beforeEach(async () => {
     fakePurchasesRepository = new FakePurchaseRepository();
+    fakeBooksRepository = new FakeBooksRepository();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
           provide: PurchasesRepository,
           useValue: fakePurchasesRepository,
+        },
+        {
+          provide: BooksRepository,
+          useValue: fakeBooksRepository,
         },
         PurchaseService,
       ],
@@ -94,5 +102,54 @@ describe('PurchaseService', () => {
         user_id: 'randomUser',
       }),
     ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should be able to return estimates correctly', async () => {
+    const books = await Promise.all([
+      fakeBooksRepository.insert({
+        title: 'A Book',
+        author: 'john doe',
+        description: 'my book',
+        price: 1,
+      }),
+      fakeBooksRepository.insert({
+        title: 'A Second Book',
+        author: 'john doe',
+        description: 'my second book',
+        price: 2,
+      }),
+    ]);
+    const estimates = await service.estimates([
+      {
+        book_id: books[0].id,
+        quantity: 1,
+      },
+      {
+        book_id: books[1].id,
+        quantity: 2,
+      },
+    ]);
+    expect(estimates.totalPrice).toBe(5);
+    expect(estimates.itemsQuantity).toBe(2);
+    expect(estimates.items).toEqual(
+      expect.arrayContaining([
+        {
+          book_id: books[0].id,
+          quantity: 1,
+          unityPrice: 1,
+          totalPrice: 1,
+          name: 'A Book',
+          author: 'john doe',
+        },
+        {
+          book_id: books[1].id,
+          quantity: 2,
+          unityPrice: 2,
+          totalPrice: 4,
+          name: 'A Second Book',
+          author: 'john doe',
+        },
+      ]),
+    );
   });
 });
