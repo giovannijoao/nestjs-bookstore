@@ -1,6 +1,6 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable import/first */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Test, TestingModule } from '@nestjs/testing';
+import AppError from '../shared/models/AppError';
 import { SchedulerProvider } from './providers/SchedulerProvider';
 import FakeSchedulerProvider from './providers/SchedulerProvider/fakes/FakeSchedulerProvider';
 import FakeTasksRepository from './providers/TasksRepository/fakes/FakeTasksRepository';
@@ -41,7 +41,7 @@ describe('TasksControllerService', () => {
     service = module.get<TasksControllerService>(TasksControllerService);
   });
 
-  describe('should be able to load tasks in applications startup', () => {
+  describe('application startup', () => {
     it('should be able to alert if there is no tasks', async () => {
       const log = jest.spyOn((service as any).logger, 'log');
       await service.startup();
@@ -86,6 +86,38 @@ describe('TasksControllerService', () => {
       const addCronJob = jest.spyOn(fakeSchedulerProvider, 'addCronJob');
       await service.startup();
       expect(addCronJob).toHaveBeenCalled();
+    });
+  });
+  describe('tasks control', () => {
+    const taskName = 'a random task';
+    const task = {
+      taskName,
+      taskWorker: 'TestTask',
+      createdAt: new Date(),
+      id: 'any',
+      isActive: true,
+      timeExpression: 'any',
+      updatedAt: new Date(),
+    };
+    beforeEach(async () => {
+      await fakeSchedulerProvider.addCronJob({
+        taskName,
+        initialize: true,
+        timeExpression: task.timeExpression,
+        job: async () => {},
+      });
+    });
+    it('should be able to get informations from a cron job', async () => {
+      const cronJobInformations = await service.getCronJobInformations(
+        taskName,
+      );
+      expect(cronJobInformations.taskName).toBe(taskName);
+      expect(cronJobInformations.timeExpression).toBe('any');
+    });
+    it('should not be able to get informations from a non-existing cron job', async () => {
+      await expect(
+        service.getCronJobInformations('non-existing'),
+      ).rejects.toBeInstanceOf(AppError);
     });
   });
 });

@@ -1,6 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { Timeout } from '@nestjs/schedule';
+import AppError from '../shared/models/AppError';
 import { SchedulerProvider } from './providers/SchedulerProvider';
 import { TasksRepository } from './providers/TasksRepository/implementations';
 import * as Tasks from './tasks';
@@ -47,5 +48,13 @@ export class TasksControllerService {
         },
       });
     });
+  }
+
+  async getCronJobInformations(taskName: string) {
+    const job = await this.schedulerProvider.getCronJob(taskName);
+    if (job) {
+      return job;
+    }
+    throw new AppError('Task not found', HttpStatus.BAD_REQUEST);
   }
 }
