@@ -12,7 +12,7 @@ export class UsersService {
     private hashProvider: HashProvider,
   ) {}
 
-  async findOne(email: string): Promise<UserModel | undefined> {
+  async findByEmail(email: string): Promise<UserModel | undefined> {
     const user = this.usersRepository.findByEmail(email);
     return user;
   }

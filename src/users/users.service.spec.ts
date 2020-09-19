@@ -53,4 +53,16 @@ describe('UsersService', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should be able to create an user account', async () => {
+    const email = 'john-doe@example.com';
+    const createdUser = await fakeUsersRepository.create({
+      name: 'john doe',
+      email,
+      password: 'johndoe123',
+    });
+    const user = await service.findByEmail(email);
+    expect(user.userId).toBe(createdUser.userId);
+    expect(user.name).toBe(createdUser.name);
+  });
 });
