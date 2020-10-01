@@ -8,7 +8,7 @@ import { SessionsModule } from './sessions/sessions.module';
 import { PurchaseModule } from './purchase/purchase.module';
 import { TasksControllerModule } from './tasks-controller/tasks-controller.module';
 
-process.env.IGNORE_MIGRATIONS = 'true';
+process.env.RUNNING = 'true';
 @Module({
   imports: [
     ScheduleModule.forRoot(),

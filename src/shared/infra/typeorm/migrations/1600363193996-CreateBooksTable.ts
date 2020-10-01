@@ -2,6 +2,7 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateBooksTable1600363193996 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    console.log(5);
     await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
     await queryRunner.createTable(
       new Table({
